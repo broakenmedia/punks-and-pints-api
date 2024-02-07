@@ -15,6 +15,6 @@ class GetBeerRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return '/beers/' . $this->beerId;
+        return '/beers/'.$this->beerId;
     }
 }

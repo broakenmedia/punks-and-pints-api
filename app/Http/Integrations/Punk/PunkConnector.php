@@ -2,9 +2,9 @@
 
 namespace App\Http\Integrations\Punk;
 
+use Saloon\Http\Connector;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Http\Connector;
 use Saloon\PaginationPlugin\Contracts\HasPagination;
 use Saloon\PaginationPlugin\PagedPaginator;
 use Saloon\RateLimitPlugin\Contracts\RateLimitStore;
@@ -26,7 +26,7 @@ class PunkConnector extends Connector implements HasPagination
     protected function resolveLimits(): array
     {
         return [
-            Limit::allow(3600)->everyHour()
+            Limit::allow(3600)->everyHour(),
         ];
     }
 
@@ -41,7 +41,7 @@ class PunkConnector extends Connector implements HasPagination
         {
             protected function isLastPage(Response $response): bool
             {
-                return sizeof((array) $response->json()) === 0;
+                return count((array) $response->json()) === 0;
             }
 
             protected function getPageItems(Response $response, Request $request): array
