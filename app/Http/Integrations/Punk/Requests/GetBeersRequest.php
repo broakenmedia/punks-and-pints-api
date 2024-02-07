@@ -4,12 +4,13 @@ namespace App\Http\Integrations\Punk\Requests;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\PaginationPlugin\Contracts\Paginatable;
 
-class GetBeersRequest extends Request
+class GetBeersRequest extends Request implements Paginatable
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly array $filterParams)
+    public function __construct(protected readonly array $filterParams = [])
     {
     }
 
@@ -20,6 +21,8 @@ class GetBeersRequest extends Request
 
     protected function defaultQuery(): array
     {
-        return $this->filterParams;
+        return array_merge([
+            'per_page' => 25
+        ], $this->filterParams);
     }
 }

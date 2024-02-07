@@ -2,21 +2,18 @@
 
 namespace App\Providers;
 
+use App\Http\Integrations\Punk\PunkConnector;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        //
+        $this->app->singleton('punk_connector', function ($app) {
+            return new PunkConnector();
+        });
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //

@@ -2,12 +2,16 @@
 
 namespace App\Http\Integrations\Punk;
 
+use App\Http\Integrations\Punk\Requests\GetBeerRequest;
+use App\Http\Integrations\Punk\Requests\GetBeersRequest;
+use App\Http\Integrations\Punk\Requests\GetRandomBeerRequest;
 use Saloon\Http\Connector;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\PaginationPlugin\Contracts\HasPagination;
 use Saloon\PaginationPlugin\PagedPaginator;
 use Saloon\RateLimitPlugin\Contracts\RateLimitStore;
+use Saloon\RateLimitPlugin\Exceptions\RateLimitReachedException;
 use Saloon\RateLimitPlugin\Limit;
 use Saloon\RateLimitPlugin\Stores\MemoryStore;
 use Saloon\RateLimitPlugin\Traits\HasRateLimits;
@@ -26,7 +30,7 @@ class PunkConnector extends Connector implements HasPagination
     protected function resolveLimits(): array
     {
         return [
-            Limit::allow(3600)->everyHour(),
+            Limit::allow(60)->everyMinute(),
         ];
     }
 
@@ -49,5 +53,20 @@ class PunkConnector extends Connector implements HasPagination
                 return $response->json();
             }
         };
+    }
+
+    public function getAllBeers(array $filterParams = [])
+    {
+        return $this->send(new GetBeersRequest($filterParams));
+    }
+
+    public function getBeer(int $beerId)
+    {
+        return $this->send(new GetBeerRequest($beerId));
+    }
+
+    public function getRandomBeer()
+    {
+        return $this->send(new GetRandomBeerRequest());
     }
 }
