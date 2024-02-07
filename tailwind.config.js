@@ -15,6 +15,21 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'ipa': {
+                    '50': '#fef8ee',
+                    '100': '#fcefd8',
+                    '200': '#f8dab0',
+                    '300': '#f4bf7d',
+                    '400': '#ee9a49',
+                    '500': '#ea7e25',
+                    '600': '#db651b',
+                    '700': '#b64d18',
+                    '800': '#913d1b',
+                    '900': '#753419',
+                    '950': '#3f180b',
+                },
+            }
         },
     },
 
