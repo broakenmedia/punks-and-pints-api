@@ -22,7 +22,7 @@ class GetBeersRequest extends Request implements Paginatable
     protected function defaultQuery(): array
     {
         return array_merge([
-            'per_page' => 25
+            'per_page' => 25,
         ], $this->filterParams);
     }
 }
