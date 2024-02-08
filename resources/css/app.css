@@ -3,10 +3,16 @@
 @tailwind utilities;
 
 @layer components {
+	.t-head {
+        @apply border-b px-4 py-2 text-sm font-bold text-left tracking-wide;
+    }
     .form-label {
         @apply block text-sm font-bold mb-2
     }
     .form-input {
         @apply rounded-lg p-2 text-sm shadow-sm focus:ring-0
+    }
+    .form-error {
+        @apply border-red-600 focus:border-red-600
     }
 }
