@@ -3,8 +3,7 @@
 	import { useApiRequest } from '../../Helpers/api-request';
 	import { useForm } from '@inertiajs/vue3';
 	import { useToast, POSITION } from "vue-toastification";
-	import { HttpStatusCode } from 'axios';
-	import { ref, onMounted, watch, computed } from 'vue';
+	import { ref, watch, computed } from 'vue';
 
 	const { fetchData } = useApiRequest();
 	const toast = useToast();
@@ -118,9 +117,8 @@
 					</button>
 				</div>
 			</div>
-			<hr />
 			<div class="overflow-x-auto">
-				<table class="table table-auto w-full mt-4">
+				<table class="table table-auto w-full mt-1">
 					<thead>
 						<tr class="bg-gray-200">
 							<th scope="col" class="t-head">Attribute</th>
