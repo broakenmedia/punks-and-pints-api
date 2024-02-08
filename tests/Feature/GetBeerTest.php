@@ -2,10 +2,10 @@
 
 use App\Http\Integrations\Punk\Requests\GetBeerRequest;
 use App\Models\User;
-use Tests\TestCase;
 use Illuminate\Http\Response;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
+use Tests\TestCase;
 
 class GetBeerTest extends TestCase
 {
