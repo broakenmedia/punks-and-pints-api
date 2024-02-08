@@ -96,4 +96,48 @@ class ProfileTest extends TestCase
 
         $this->assertNotNull($user->fresh());
     }
+
+    public function test_api_token_can_be_generated(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/profile/token', [
+                'token_name' => 'Test TokenName',
+            ]);
+
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('flash')
+            ->assertRedirect('/profile');
+
+        $user->refresh();
+
+        $userToken = $user->tokens()->get()->last();
+
+        $this->assertSame('Test TokenName', $userToken->name);
+    }
+
+    public function test_api_token_can_be_deleted(): void
+    {
+        $user = User::factory()->create();
+        $token = $user->createToken('Test Token')->accessToken;
+
+        $this->assertCount(1, $user->tokens()->get());
+
+        $response = $this
+            ->actingAs($user)
+            ->delete('/profile/token', [
+                'token_id' => $token->id,
+            ]);
+
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/profile');
+
+        $user->refresh();
+
+        $this->assertCount(0, $user->tokens()->get());
+    }
 }
