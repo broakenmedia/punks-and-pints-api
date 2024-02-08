@@ -11,34 +11,34 @@ use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-	use RefreshDatabase, WithFaker;
+    use RefreshDatabase, WithFaker;
 
-	/** @test */
-	public function test_inertia_component_renders_for_route()
-	{
-		$user = User::factory()->create();
+    /** @test */
+    public function test_inertia_component_renders_for_route()
+    {
+        $user = User::factory()->create();
 
-		$response = $this->actingAs($user)->get(route('profile.edit'));
+        $response = $this->actingAs($user)->get(route('profile.edit'));
 
-		$response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_OK);
 
-		$response->assertInertia(
-			fn (Assert $page) => $page->component('Profile/Edit')
-		);
-	}
+        $response->assertInertia(
+            fn (Assert $page) => $page->component('Profile/Edit')
+        );
+    }
 
-	/** @test */
-	public function test_will_pass_existing_api_tokens()
-	{
-		$user = User::factory()->create();
-		$user->createToken('test');
+    /** @test */
+    public function test_will_pass_existing_api_tokens()
+    {
+        $user = User::factory()->create();
+        $user->createToken('test');
 
-		$response = $this->actingAs($user)->get(route('profile.edit'));
+        $response = $this->actingAs($user)->get(route('profile.edit'));
 
-		$response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_OK);
 
-		$response->assertInertia(
-			fn (Assert $page) => $page->component('Profile/Edit')->has('existingApiTokens', 1)
-		);
-	}
+        $response->assertInertia(
+            fn (Assert $page) => $page->component('Profile/Edit')->has('existingApiTokens', 1)
+        );
+    }
 }
