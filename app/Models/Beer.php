@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Beer extends Model
 {
@@ -32,7 +33,7 @@ class Beer extends Model
         'contributed_by',
     ];
 
-    public function foodPairings()
+    public function foodPairings(): HasMany
     {
         return $this->hasMany(FoodPairing::class);
     }
