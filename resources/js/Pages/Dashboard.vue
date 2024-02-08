@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, watch } from 'vue';
     import { Head } from '@inertiajs/vue3';
     import { useApiRequest } from '../Helpers/api-request';
     import { useFilterStore } from '../Stores/search-filters';
@@ -16,6 +16,7 @@
 
     const searchResults = ref([]);
     const validationErrors = ref([]);
+    const isLoading = ref(false);
 
     filters.options.page = 1;
     filters.options.per_page = 15;
@@ -24,11 +25,19 @@
         search(filters.clean);
     });
 
-    filters.$subscribe(debounce(() => {
+    const filerDebounce = debounce(() => {
         search(filters.clean);
-    }, 600));
+    }, 600);
+
+    filters.$subscribe(filerDebounce);
+
+    watch(() => filters.options.page, () => {
+        //Skip the debounce for instant page
+        filerDebounce.flush();
+    });
 
     const search = async (filters = []) => {
+        isLoading.value = true;
         try {
             const response = await fetchData(route('beers.index'), filters);
             validationErrors.value = {};
@@ -37,6 +46,8 @@
             if (error.response.status === HttpStatusCode.UnprocessableEntity) {
                 validationErrors.value = error.response.data.errors;
             }
+        } finally {
+            isLoading.value = false;
         }
     };
 </script>
@@ -55,7 +66,7 @@
                         <BeerSearchFilters :errors="validationErrors" />
                     </div>
                     <div class="col-span-12 md:col-span-9">
-                        <BeerResults :search-results="searchResults" />
+                        <BeerResults :is-loading="isLoading" :search-results="searchResults" />
                     </div>
                 </div>
 
