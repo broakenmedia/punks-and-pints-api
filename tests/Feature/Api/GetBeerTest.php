@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature\Api;
+
 use App\Http\Integrations\Punk\Requests\GetBeerRequest;
 use App\Models\User;
 use Illuminate\Http\Response;
