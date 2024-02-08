@@ -1,0 +1,275 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pints & Punks API",
+        "version": "1"
+    },
+    "paths": {
+        "/beers/{beerId}": {
+            "get": {
+                "tags": [
+                    "Beers"
+                ],
+                "summary": "Get a single beer by ID",
+                "operationId": "50c9415ab2765c9b7e50bff8cba4a93e",
+                "parameters": [
+                    {
+                        "name": "beerId",
+                        "in": "path",
+                        "description": "The ID of the beer to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved a single beer.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Indicates if the request was successful.",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "description": "Array containing a single beer object.",
+                                            "type": "array",
+                                            "items": {
+                                                "description": "A beer object.",
+                                                "properties": {},
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "The request failed validation.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the validation error(s).",
+                                            "type": "string",
+                                            "example": "The beer id field must be a number."
+                                        },
+                                        "errors": {
+                                            "description": "Validation errors keyed by field name.",
+                                            "properties": {
+                                                "beerId": {
+                                                    "description": "Validation errors for the request.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The beer id field must be a number."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "The Punk API rate-limit has been exceeded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Indicates if the request was successful. Always false for 429 errors.",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "description": "A message describing why the rate limit was exceeded.",
+                                                    "type": "string",
+                                                    "example": "Too many requests to Punk's API. Please try again in [DURATION]."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/beers": {
+            "get": {
+                "tags": [
+                    "Beers"
+                ],
+                "summary": "Get a list of beers",
+                "operationId": "326d52c267be6656790675824aa558c3",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved a list of beers.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Indicates if the request was successful.",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "description": "Array of beer objects.",
+                                            "type": "array",
+                                            "items": {
+                                                "description": "A beer object.",
+                                                "properties": {},
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "The request failed validation.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the validation error(s).",
+                                            "type": "string",
+                                            "example": "The ABV (Min) field must be a number. (and 1 more error)"
+                                        },
+                                        "errors": {
+                                            "description": "Validation errors keyed by field name.",
+                                            "properties": {
+                                                "abv_gt": {
+                                                    "description": "Validation errors for the request.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The ABV (Min) field must be a number."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "The Punk API rate-limit has been exceeded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Indicates if the request was successful. Always false for 429 errors.",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "description": "A message describing why the rate limit was exceeded.",
+                                                    "type": "string",
+                                                    "example": "Too many requests to Punk's API. Please try again in [DURATION]."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/beers/random": {
+            "get": {
+                "tags": [
+                    "Beers"
+                ],
+                "summary": "Get a random single beer.",
+                "operationId": "18b3022af099b4710896fb4f60c9a147",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved a single random beer.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Indicates if the request was successful.",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "description": "Array containing a single beer object.",
+                                            "type": "array",
+                                            "items": {
+                                                "description": "A beer object.",
+                                                "properties": {},
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "The Punk API rate-limit has been exceeded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Indicates if the request was successful. Always false for 429 errors.",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "description": "A message describing why the rate limit was exceeded.",
+                                                    "type": "string",
+                                                    "example": "Too many requests to Punk's API. Please try again in [DURATION]."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
