@@ -26,4 +26,25 @@ class GetBeersRequest extends FormRequest
             'per_page' => 'numeric',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'abv_gt' => 'ABV (Min)',
+            'abv_lt' => 'ABV (Max)',
+            'ibu_gt' => 'IBU (Min)',
+            'ibu_lt' => 'IBU (Max)',
+            'ebc_gt' => 'EBC (Min)',
+            'ebc_lt' => 'EBC (Max)',
+            'beer_name' => 'Beer Name',
+            'yeast' => 'Yeast Type',
+            'brewed_before' => 'Brewed Before',
+            'brewed_after' => 'Brewed After',
+            'hops' => 'Hops Type',
+            'malt' => 'Malt Type',
+            'food' => 'Food Pairings',
+            'page' => 'Page',
+            'per_page' => 'Per Page',
+        ];
+    }
 }
