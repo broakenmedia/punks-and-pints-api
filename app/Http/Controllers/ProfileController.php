@@ -21,6 +21,8 @@ class ProfileController extends Controller
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'existingApiTokens' => $request->user()->tokens()->select(['id', 'name', 'created_at'])->get()->toArray(),
+            'newApiToken' => $request->input('newApiToken'),
         ]);
     }
 
