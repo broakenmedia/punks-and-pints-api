@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiTokenController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaveBeerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/token', [ApiTokenController::class, 'store'])->name('profile.api.store');
     Route::delete('/profile/token', [ApiTokenController::class, 'destroy'])->name('profile.api.destroy');
+    //Route does not return JSON, acts as a web route for inertia.
+    Route::post('/beers', SaveBeerController::class)->name('beers.store');
 });
 
 require __DIR__.'/auth.php';

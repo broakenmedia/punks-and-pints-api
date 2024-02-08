@@ -3,9 +3,28 @@
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
+import { useToast, POSITION } from "vue-toastification";
 window.axios = axios;
+window.toast = useToast();
+
+window.axios.interceptors.response.use(function (response) {
+	return response;
+}, function (error) {
+	if (error.response.status === HttpStatusCode.TooManyRequests) {
+		window.toast.info(error.response.data.data.message, {
+			timeout: 2000,
+			position: POSITION.BOTTOM_CENTER
+		});
+	} else if (error.response.status === HttpStatusCode.UnprocessableEntity) {
+		/* We can still handle individual validation errors in the components on top of this general information. */
+		window.error(error.response.data.message, {
+			timeout: 3000,
+			position: POSITION.BOTTOM_CENTER
+		});
+	}
+	return Promise.reject(error);
+});
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
