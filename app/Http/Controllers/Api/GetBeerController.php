@@ -123,7 +123,7 @@ class GetBeerController extends ApiController
                 return new ApiErrorResponse($res->json(), $res->status());
             }
 
-            return new ApiResponse($res->json(), ['isSaved' => Beer::where('beer_id', $req->validated('beerId')) !== null]);
+            return new ApiResponse($res->json(), ['isSaved' => Beer::where('beer_id', $req->validated('beerId'))->first() !== null]);
         } catch (RateLimitReachedException $exception) {
             $timeRemaining = Carbon::now()->addSeconds($exception->getLimit()->getRemainingSeconds())->diffForHumans();
 
