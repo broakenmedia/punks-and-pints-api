@@ -56,7 +56,7 @@
     <Head title="Dashboard" />
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Pints & Punks</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Punks & Pints</h2>
         </template>
 
         <div class="py-6 md:py-12 px-4">

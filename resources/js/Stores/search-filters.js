@@ -36,7 +36,6 @@ export const useFilterStore = defineStore('search-filters', {
       return Object.fromEntries(Object.entries(state.options)
         .filter(([_, value]) => value).map(([key, value]) => {
           if (['brewed_before', 'brewed_after'].includes(key) && value) {
-            console.log(value);
             return [key, format(new Date(value), 'MM-yyyy')];
           }
           return [key, value];
