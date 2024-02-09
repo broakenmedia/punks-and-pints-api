@@ -1,25 +1,38 @@
 # Punks & Pints API
 
----
-
-## Screenshots
-
-
----
-
 ## Summary
 
-This project is a Laravel application designed to provide an authenticated frontend to the (Punk API)[https://punkapi.com/documentation/v2]. Users can login and register, at which point they will have full access to the paged library of beers available at the Punk API. It provides filtering options for all available fields and will reflect changes as-you-type while trying to respect the rate limits imposed by the API.
+This project is a Laravel application designed to provide an authenticated frontend to the [Punk API](https://punkapi.com/documentation/v2). Users can login and register, at which point they will have full access to the paged library of beers available at the Punk API. It provides filtering options for all available fields and will reflect changes as-you-type while trying to respect the rate limits imposed by the API.
 
 In addition to being able to view and filter a list of all beers with their basic attributes, each item can be clicked to display the full breakdown.
 
 When viewing the details for a beer you can click the handy save icon in the upper right corner of the modal to save a local copy of the beer to your favourites along with its food pairings.
 
+## Screenshots
+
+![image](https://github.com/broakenmedia/punks-and-pints-api/assets/1523918/c7fdf209-2510-4601-ad8d-0b50fe96d6b7)
+
+![image](https://github.com/broakenmedia/punks-and-pints-api/assets/1523918/7db10b0c-ca2f-4825-a82b-2f317dd69c4b)
+
+![image](https://github.com/broakenmedia/punks-and-pints-api/assets/1523918/f148b089-d522-41fb-9916-a74d3fe5d7e9)
+
+## Getting Started
+
+To run the project locally, follow these steps:
+
+1. **Clone the Repository**: `git clone git@github.com:broakenmedia/punks-and-pints-api.git`
+2. **Install Dependencies**: `sail composer install && sail npm install`
+3. **Set Up Environment Variables**: `cp .env.example .env && sail artisan key:generate`
+4. **Start the Development Server**: `sail up -d` (for Laravel) and `sail npm run dev` (for frontend assets)
+5. **Run Migrations and Seed**: `sail artisan migrate:fresh --seed`
+
+I have seeded a basic user account for you to make testing easier. See `database/seeders/DatabaseSeeder.php` for the credentials
+
 ## Design Decisions
 
 **Project**:
 
-This project is using Laravel Sail to make local development plain sailing 🥁. It is based on PHP 8.3 and MySQL and it is generally always my preference to leverage Docker for repeatable, isolated environments. Be that via Sail or a custom Ansible/Makefile led docker-compose.
+This project is using [Laravel Sail](https://laravel.com/docs/10.x/sail#main-content) to make local development plain sailing 🥁. It is based on PHP 8.3 and MySQL and it is generally always my preference to leverage Docker for repeatable, isolated environments. Be that via Sail or a custom Ansible/Makefile led docker-compose.
 
 I also installed `laravel/pint` to test for proper Laravel Code Styling and `larastan/larastan` for error checking.
 
@@ -50,18 +63,6 @@ I have used Swagger to document the sites API endpoints, including their paramet
 
 If changes are made to the code docs, the swagger file can be regenerated with `sail artisan l5-swagger:generate`
 
-## Getting Started
-
-To run the project locally, follow these steps:
-
-1. **Clone the Repository**: `git clone git@github.com:broakenmedia/punks-and-pints-api.git`
-2. **Install Dependencies**: `sail composer install && sail npm install`
-3. **Set Up Environment Variables**: `cp .env.example .env && sail artisan key:generate`
-4. **Start the Development Server**: `sail up -d` (for Laravel) and `sail npm run dev` (for frontend assets)
-5. **Run Migrations and Seed**: `sail artisan migrate:fresh --seed`
-
-I have seeded a basic user account for you to make testing easier. See `database/seeders/DatabaseSeeder.php` for the credentials
-
 ## Notes
 
 As you might expect, I have focussed on trying to demonstrate a breadth of skills in this project rather than depth given the time available.
@@ -74,7 +75,7 @@ I fully implemented the "Random Beer" endpoint along with tests etc but i have n
 
 There are certainly things i'd do differently in a production environment. For example having generated API tokens expire by default, cache API responses, add more specific error messages for validation failures and possibly even build on Livewire due to the simple nature of the client UI interactions.
 
-## Points of Interest (Not exhaustive)
+## Points of Interest (Non-exhaustive)
 
 `[127.0.0.1/punk.local]/api/documentation`
 
