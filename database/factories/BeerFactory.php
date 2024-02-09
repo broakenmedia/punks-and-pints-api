@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Beer;
 use App\Models\FoodPairing;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
 class BeerFactory extends Factory
 {
@@ -36,7 +37,8 @@ class BeerFactory extends Factory
 
     public function withFoodPairings()
     {
-        return $this->afterCreating(function (Beer $beer) {
+        return $this->afterCreating(function (Model $beer) {
+            /** @var Beer $beer */
             $beer->foodPairings()->saveMany(FoodPairing::factory()->count(3)->make());
         });
     }

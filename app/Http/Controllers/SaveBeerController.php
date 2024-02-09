@@ -27,7 +27,6 @@ class SaveBeerController extends Controller
             if ($beerData !== null) {
                 try {
                     $beer = Beer::updateOrCreate(['beer_id' => $req->validated('beer_id')], $this->mapDataForInsert($beerData));
-                    $beer->save();
                     $beer->foodPairings()->delete();
                     $pairings = collect(Arr::get($beerData, 'food_pairing', []))->map(function ($value) {
                         return new FoodPairing([
@@ -36,7 +35,6 @@ class SaveBeerController extends Controller
                     });
                     $beer->foodPairings()->saveMany($pairings);
                 } catch (Throwable $e) {
-                    dd($e);
                     Log::error($e);
                 }
             }
