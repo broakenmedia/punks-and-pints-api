@@ -21,10 +21,12 @@ When viewing the details for a beer you can click the handy save icon in the upp
 To run the project locally, follow these steps:
 
 1. **Clone the Repository**: `git clone git@github.com:broakenmedia/punks-and-pints-api.git`
-2. **Install Dependencies**: `sail composer install && sail npm install`
-3. **Set Up Environment Variables**: `cp .env.example .env && sail artisan key:generate`
-4. **Start the Development Server**: `sail up -d` (for Laravel) and `sail npm run dev` (for frontend assets)
-5. **Run Migrations and Seed**: `sail artisan migrate:fresh --seed`
+2. **Install Composer Dependencies**: `composer install` (Assumes you have a local install of php/composer)
+3. **Start Sail**: `sail up -d`
+4. **Install NPM Dependencies**: `sail npm install`
+5. **Set Up Environment Variables**: `cp .env.example .env && sail artisan key:generate`
+6. **Compile Frontend**: `sail npm run build`
+7. **Run Migrations and Seed**: `sail artisan migrate:fresh --seed`
 
 I have seeded a basic user account for you to make testing easier. See `database/seeders/DatabaseSeeder.php` for the credentials
 
